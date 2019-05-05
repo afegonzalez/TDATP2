@@ -4,45 +4,39 @@ class GeneradorSospechosos:
         self.listaIngresos = listaIngresos
 
     def encontrarSospechosos(self):
+		lista_de_sospechosos = []
+		lista_entradas = lista_de_sospechosos.sort(key=sortByEntrance) #hay que crear metodos sort by entrance y exit
+		lista_salidas = lista_de_sospechosos.sort(key=sortByExit)	   #son simplemente getters de tiempo de salida y entrada
+		lista_auxiliar = []
 
-        lista = self.listaIngresos
+		for primer_complice in lista_entradas:
+			tiempo_inicio = primer_complice.ingreso
+			tiempo_salida = primer_complice.hora_salida
+			tiempo_ilicito = primer_complice.tiempototal
 
-        index = len(lista)
+			for candidato in lista_salidas:
+				if not (candidato.hora_salida - tiempo_inicio < 40): #descarta candidato si el tiempo es menor a 40
+					if tiempo_salida_j - tiempo_inicio < tiempo_ilicito:
+						tiempo_ilicito = tiempo_salida_j - tiempo_inicio
+						lista_auxiliar.append(candidato)
+						primero_en_salir = candidato
 
-        listaSospechosos = []
+					if tiempo_salida_j - tiempo_inicio >= tiempo_ilicito:
+						lista_auxiliar.append(candidato)
 
-        tiempoAnterior = 0
+					if candidato.nombre == primer_complice.nombre: #pasar a la siguiente iteracion
+						lista_auxiliar = []
+						break
 
-        tiempoTotalMaximo = 0
+			if len(lista_auxiliar) >= 5 & len(lista_auxiliar) <= 10:
+				lista_de_sospechosos.append(lista_auxiliar)
 
-        indice = 1
 
-        egresoAnt = 0
+					
 
-        for j in range(len(lista)):
-            posibleSospechosos = []
 
-            if (lista[j].tiempototal < 120):
-                posibleSospechosos.append(lista[j])
-                egresoMasTemprano = lista[j].hora_salida
-                for x in range(j + 1, len(lista)):
-                    if (lista[x].tiempototal < 120 and lista[x].ingreso < egresoMasTemprano
-                        and len(posibleSospechosos) < 10):
-                        if (egresoMasTemprano > lista[x].hora_salida):
-                            egresoMasTemprano = lista[x].hora_salida
-                        if (lista[x] in posibleSospechosos):
-                            indice = posibleSospechosos.index(lista[x])
-                            posibleSospechosos[indice].tiempototal += lista[x].tiempototal
-                        else:
-                            posibleSospechosos.append(lista[x])
-                if (len(posibleSospechosos) >= 5):
-                    listaSospechosos.append(posibleSospechosos)
-                egresoMasTemprano = 0
-
-        return listaSospechosos
     
-    
-    #lista_entradas menor a mayor
+#lista_entradas menor a mayor
 #lista_salidas menor a mayor
 
 #para cada i en lista_entradas:
