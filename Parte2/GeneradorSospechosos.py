@@ -40,5 +40,39 @@ class GeneradorSospechosos:
                 egresoMasTemprano = 0
 
         return listaSospechosos
+    
+    
+    #lista_entradas menor a mayor
+#lista_salidas menor a mayor
+
+#para cada i en lista_entradas:
+
+	#sea tiempo_inicio = tiempo de entrada de i
+	#sea tiempo_salida = tiempo de entrada de i
+	#tiempo_ilicito = tiempo_salida - tiempo_entrada
+
+	#para cada j en lista_salidas:
+		#si tiempo_salida_j - tiempo_inicio < 40:
+			# candidato j es descartado
+		#si tiempo_salida_j - tiempo_inicio < tiempo_ilicito:
+			#tiempo_ilicito = tiempo_salida_j - tiempo_inicio
+			#insertar j en candidatos (pasa a ser el primero en salir)
+
+		#si tiempo_salida_j - tiempo_inicio >= tiempo ilicito:
+			#insertar j en candidatos (todos aquellos que esten dsp de que sale el primero son de la banda)
+
+		#sea ultimo_en_entrar el tiempo en el que ingreso el ultimo sin que nadie de los candidatos saliera(?)
+		#si tiempo_salida_j <= ultimo_en_entrar:
+			#insertar j en candidatos
+
+		#si j en lista_candidatos o j == i (hacer algo)-----------------_> no me acuerdo como era este caso
+			#algo
+
+	#si lista de candidatos < 5:
+		#nada
+	#si lista de candidatos > 10: (creo que esta no deberia pasar de ninguna forma, si pasara habria que separar los grupos)
+
+	#else:
+		#meter lista de candidatos
 
 
