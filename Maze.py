@@ -16,13 +16,12 @@ class Maze:
 
 	def build_dfs(self):
 		s = Stack.Stack(self.start)
-		visited_cells = set()
 		while len(s.stack):   # len() es O(1), while O(n)
 			current_cell = s.get_next()  # O(1)
-			if current_cell not in visited_cells:
-				visited_cells.add(current_cell)
-				possible_paths = self.grid.get_adjacent_cells(current_cell)
-				potentials = [x for x in possible_paths if x not in visited_cells]  # O(E)? reviso si estan en visitados
+			if not current_cell.not_built():  # O(1)
+				current_cell.build()  # O(1)
+				possible_paths = self.grid.get_adjacent_cells(current_cell)  # O(1)
+				potentials = [x for x in possible_paths if not x.not_built()]
 				if potentials:
 					next_cell = random.choice(potentials)  # O(1)
 					current_cell.connect(next_cell)  # O(1)
@@ -36,7 +35,6 @@ class Maze:
 		q = deque()
 		q.append(self.start) # O(1)
 		visited_cells.add(self.start)  # O(1) en gral, O(n) por caso con hash colpasado
-									   # add mas lento pero ver si contiene va a ser generalemnte mas rapido que lista
 		while len(q):
 			current_cell = q.popleft()  # O(1)
 			n = current_cell.neighbours.get_not_null_neighbours()
@@ -72,7 +70,7 @@ class Maze:
 
 	def _recursive_generation(self, y0, x0, yf, xf, cut = 0): #1 for vertical, 0 for horizontal cut
 		if ((((xf-x0)<1)|((yf-y0)<1)) | ((xf-x0 == 1) | (yf-y0 ==1))):
-		    return
+			return
 
 		if (not cut) & (xf-x0 < 2):
 			cut = 1

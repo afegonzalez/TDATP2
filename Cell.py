@@ -19,14 +19,20 @@ class Cell:
     def __init__(self, x=-1, y=-1):
         self.pos = (x, y)
         self.neighbours = Neighbours()
+        self.visit = False
         self._fill = False
+
+    def build(self):
+        self.visit = True
+
+    def not_built(self):
+        return self.visit
 
     def fill_pos(self):
         self._fill = str(self.pos[1]) + "," + str(self.pos[0])
 
     def fill(self):
         self._fill = " * "
-
 
     def connect(self, con):
         if (con.pos[0] == self.pos[0] + 1 and
