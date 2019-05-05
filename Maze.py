@@ -50,11 +50,12 @@ class Maze:
 		parent, distance = self.__solve_maze_bfs()
 		cell = self.finish
 
-		print("Longitud: " + str(distance[self.finish]))
+		final_distance = str(distance[self.finish])
 		while parent[cell] is not None:
 			cell.fill()
 			cell = parent[cell]  # esto me garca la referencia en self.finish tambien no? Me importa eso? Creo que no
 		cell.fill()
+		return final_distance
 
 	def __str__(self):
 		return str(self.grid)
