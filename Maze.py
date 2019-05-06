@@ -78,9 +78,12 @@ class Maze:
 
 		if cut:
 			if(yf-y0 >= 2):
-				xw = random.randrange(x0,xf) #busca corte
-				while(xw == x0):
-					xw = random.randrange(x0,xf) #busca corte
+				if not(y0+1 == yf):
+					xw = random.randrange(x0+1,xf) #busca corte
+				else:
+					xw = xf
+				#while(xw == x0):
+					#xw = random.randrange(x0,xf) #busca corte
 				yh = random.randrange(y0,yf) #elige agujero
 				for yy in range(y0,yf):
 					if (yy != yh):
@@ -91,9 +94,12 @@ class Maze:
 
 		elif not cut:
 			if(xf-x0 >= 2):
-				yw = random.randrange(y0,yf) #buscar corte
-				while(yw == y0):
-					yw = random.randrange(y0,yf) #busca corte
+				if not(y0+1 == yf):
+					yw = random.randrange(y0+1,yf) #buscar corte
+				#while(yw == y0):
+					#yw = random.randrange(y0,yf) #busca corte
+				else:
+					yw = yf
 				xh = random.randrange(x0,xf) #elige agujero
 				for xx in range(x0,xf):
 					if(xx != xh):
