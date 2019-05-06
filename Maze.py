@@ -78,7 +78,7 @@ class Maze:
 
 		if cut:
 			if(yf-y0 >= 2):
-				if not(y0+1 == yf):
+				if not(x0+1 == xf):
 					xw = random.randrange(x0+1,xf) #busca corte
 				else:
 					xw = xf
