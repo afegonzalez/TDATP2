@@ -3,70 +3,36 @@ class GeneradorSospechosos:
     def __init__(self, listaIngresos):
         self.listaIngresos = listaIngresos
 
+
     def encontrarSospechosos(self):
-		lista_de_sospechosos = []
-		lista_entradas = lista_de_sospechosos.sort(key=sortByEntrance) #hay que crear metodos sort by entrance y exit
-		lista_salidas = lista_de_sospechosos.sort(key=sortByExit)	   #son simplemente getters de tiempo de salida y entrada
-		lista_auxiliar = []
-
-		for primer_complice in lista_entradas:
-			tiempo_inicio = primer_complice.ingreso
-			tiempo_salida = primer_complice.hora_salida
-			tiempo_ilicito = primer_complice.tiempototal
-
-			for candidato in lista_salidas:
-				if not (candidato.hora_salida - tiempo_inicio < 40): #descarta candidato si el tiempo es menor a 40
-					if tiempo_salida_j - tiempo_inicio < tiempo_ilicito:
-						tiempo_ilicito = tiempo_salida_j - tiempo_inicio
-						lista_auxiliar.append(candidato)
-						primero_en_salir = candidato
-
-					if tiempo_salida_j - tiempo_inicio >= tiempo_ilicito:
-						lista_auxiliar.append(candidato)
-
-					if candidato.nombre == primer_complice.nombre: #pasar a la siguiente iteracion
-						lista_auxiliar = []
-						break
-
-			if len(lista_auxiliar) >= 5 & len(lista_auxiliar) <= 10:
-				lista_de_sospechosos.append(lista_auxiliar)
+        lista_de_listas = []
+        print(len(self.listaIngresos))
+        lista_entradas = (self.listaIngresos).copy()
+        self.listaIngresos.sort(key=lambda x: x.hora_salida, reverse=True)
+        lista_salidas = (self.listaIngresos).copy()
+        sospechosos_actuales = []
 
 
-					
+        for primer_complice in lista_entradas:
+            primero_en_salir = primer_complice
+            tiempo_inicio = primer_complice.ingreso
+            tiempo_ilicito = primer_complice.tiempototal
 
+            for candidato in lista_salidas:
+                if candidato.hora_salida - tiempo_inicio < 40:  # descarta candidato y todos los que le sigan si el tiempo es menor a 40
+                    break
+                if candidato.ingreso > primero_en_salir.hora_salida:
+                    break                                       # no comparte tiempo con el que se lleva el botin, no esta en la banda
+                if candidato.ingreso > tiempo_inicio + 120:
+                    break                                       # el robo dura 120 minutos maximo
 
-    
-#lista_entradas menor a mayor
-#lista_salidas menor a mayor
+                if candidato.hora_salida - tiempo_inicio < tiempo_ilicito:
+                    tiempo_ilicito = candidato.hora_salida - tiempo_inicio
+                    sospechosos_actuales.append(candidato)
+                    primero_en_salir = candidato
 
-#para cada i en lista_entradas:
+                elif candidato.hora_salida - tiempo_inicio >= tiempo_ilicito:
+                    sospechosos_actuales.append(candidato)
 
-	#sea tiempo_inicio = tiempo de entrada de i
-	#sea tiempo_salida = tiempo de entrada de i
-	#tiempo_ilicito = tiempo_salida - tiempo_entrada
-
-	#para cada j en lista_salidas:
-		#si tiempo_salida_j - tiempo_inicio < 40:
-			# candidato j es descartado
-		#si tiempo_salida_j - tiempo_inicio < tiempo_ilicito:
-			#tiempo_ilicito = tiempo_salida_j - tiempo_inicio
-			#insertar j en candidatos (pasa a ser el primero en salir)
-
-		#si tiempo_salida_j - tiempo_inicio >= tiempo ilicito:
-			#insertar j en candidatos (todos aquellos que esten dsp de que sale el primero son de la banda)
-
-		#sea ultimo_en_entrar el tiempo en el que ingreso el ultimo sin que nadie de los candidatos saliera(?)
-		#si tiempo_salida_j <= ultimo_en_entrar:
-			#insertar j en candidatos
-
-		#si j en lista_candidatos o j == i (hacer algo)-----------------_> no me acuerdo como era este caso
-			#algo
-
-	#si lista de candidatos < 5:
-		#nada
-	#si lista de candidatos > 10: (creo que esta no deberia pasar de ninguna forma, si pasara habria que separar los grupos)
-
-	#else:
-		#meter lista de candidatos
-
-
+            if len(sospechosos_actuales) >= 5 & len(sospechosos_actuales) <= 10:
+                lista_de_listas.append(sospechosos_actuales)

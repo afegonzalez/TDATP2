@@ -6,14 +6,11 @@ class Persona:
         self.tiempototal = int(tiempototal)
         self.hora_salida = int(ingreso) + int(tiempototal)
 
-
     def getTiempoIngreso(self):
-
         return self.ingreso
 
     def getTiempoFinal(self):
         return self.hora_salida
-
 
     def compararHoraInicio(self,otro):
         return self.ingreso >= otro
@@ -22,4 +19,4 @@ class Persona:
         return self.nombre
 
     def __eq__(self, other):
-        return (self.nombre == other.nombre)
+        return self.nombre == other.nombre
