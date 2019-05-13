@@ -1,0 +1,12 @@
+Carlos,1,50
+Juan,2,15
+Esteban,3,35
+Mario,4,15
+Carlos,5,25
+Mauro,6,15
+Andres,9,160
+Francisco,10,50
+Nicolas,11,23
+Felipe,12,11
+Luis,14,252
+Ignacio,600,151
